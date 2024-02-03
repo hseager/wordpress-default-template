@@ -1,41 +1,44 @@
-<?php 
+<?php
 
 // Enable featured image
-add_theme_support( 'post-thumbnails' ); 
+add_theme_support('post-thumbnails');
 
 // Remove wordpress emoji junk
 remove_action('wp_head', 'print_emoji_detection_script', 7);
 remove_action('wp_print_styles', 'print_emoji_styles');
 
-remove_action( 'admin_print_scripts', 'print_emoji_detection_script' );
-remove_action( 'admin_print_styles', 'print_emoji_styles' );
+remove_action('admin_print_scripts', 'print_emoji_detection_script');
+remove_action('admin_print_styles', 'print_emoji_styles');
 
 // Remove Gutenburg CSS
-function remove_wp_block_library_css(){
-  wp_dequeue_style( 'wp-block-library' );
-  wp_dequeue_style( 'wp-block-library-theme' );
-  wp_dequeue_style( 'wc-block-style' ); // Remove woocommerce
-  wp_dequeue_style( 'global-styles' ); // Remove json stuff
+function remove_wp_block_library_css()
+{
+  wp_dequeue_style('wp-block-library');
+  wp_dequeue_style('wp-block-library-theme');
+  wp_dequeue_style('wc-block-style'); // Remove woocommerce
+  wp_dequeue_style('global-styles'); // Remove json stuff
 }
 
-add_action( 'wp_enqueue_scripts', 'remove_wp_block_library_css', 100 );
+add_action('wp_enqueue_scripts', 'remove_wp_block_library_css', 100);
 
 // Remove oembed & API
-remove_action( 'wp_head', 'rest_output_link_wp_head', 10 );
-remove_action( 'wp_head', 'wp_oembed_add_discovery_links', 10 );
-remove_action( 'wp_head', 'wp_oembed_add_host_js' );
+remove_action('wp_head', 'rest_output_link_wp_head', 10);
+remove_action('wp_head', 'wp_oembed_add_discovery_links', 10);
+remove_action('wp_head', 'wp_oembed_add_host_js');
 remove_action('rest_api_init', 'wp_oembed_register_route');
 remove_filter('oembed_dataparse', 'wp_filter_oembed_result', 10);
 
 // Remove classic CSS
-add_action( 'wp_enqueue_scripts', 'mywptheme_child_deregister_styles', 20 );
-function mywptheme_child_deregister_styles() {
-  wp_dequeue_style( 'classic-theme-styles' );
+add_action('wp_enqueue_scripts', 'mywptheme_child_deregister_styles', 20);
+function mywptheme_child_deregister_styles()
+{
+  wp_dequeue_style('classic-theme-styles');
 }
 
 // Remove edit link
 add_action('init', 'remheadlink');
-function remheadlink() {
+function remheadlink()
+{
   remove_action('wp_head', 'rsd_link');
   remove_action('wp_head', 'wlwmanifest_link');
 }
@@ -53,7 +56,7 @@ add_action( 'init', 'register_my_menu' );
 
 /* Custom Image Size
 if ( function_exists( 'add_image_size' ) ) { 
-	add_image_size( 'block-image', 9999, 300 );  
+  add_image_size( 'block-image', 9999, 300 );  
 }
 */
 
